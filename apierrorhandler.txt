@@ -1,0 +1,21 @@
+Explanation:
+
+class ApiErrorHandler extends Error { ... }: This line defines a class named ApiErrorHandler that extends the built-in JavaScript Error class. By extending Error, the ApiErrorHandler class inherits the behavior and properties of the Error class, allowing it to be used as a custom error handler.
+
+constructor(statusCode, message = "something went wrong", errors = [], stack = "") { ... }: This is the constructor method of the ApiErrorHandler class. It initializes new instances of ApiErrorHandler with the provided parameters or default values.
+
+super(message);: Calls the constructor of the parent class (Error) with the provided message. This sets the message property of the error instance.
+
+this.statusCode = statusCode;: Sets the statusCode property of the error instance to the provided statusCode.
+
+this.data = null;: Initializes the data property of the error instance to null. This property seems to be reserved for potential additional data associated with the error but is not utilized in the constructor.
+
+this.message = message;: Sets the message property of the error instance to the provided message.
+
+this.success = false;: Initializes the success property of the error instance to false. This property likely indicates whether the operation that triggered the error was successful or not.
+
+this.errors = errors;: Sets the errors property of the error instance to the provided errors array. This property may hold additional error details or multiple errors.
+
+if (stack) { ... } else { ... }: Checks if a stack trace is provided. If so, it sets the stack property of the error instance to the provided stack. Otherwise, it captures a stack trace for the error using Error.captureStackTrace().
+
+The data property is initialized to null in this implementation. It appears that the intention might have been to leave room for additional data to be attached to the error object, although it's not used or assigned in the constructor itself. Typically, if you have additional data to attach to the error, you could set it after creating the error instance.
