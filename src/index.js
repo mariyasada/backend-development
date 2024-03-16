@@ -12,7 +12,7 @@ connectDB()
       console.log("something went wrong", err);
     });
     app.listen(port, () => {
-      console.log(`app running on port ${port}`);
+      console.log(`My app running on port number ${port}`);
     });
   })
   .catch((err) => console.log("connection failed", err));
