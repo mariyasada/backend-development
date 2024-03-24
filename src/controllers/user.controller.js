@@ -5,10 +5,10 @@ import { uploadFileOnCloudinary } from "../utils/fileUpload.js";
 import { apiResponse } from "../utils/ApiResponse.js";
 
 // creating generalaccessatoken method for code readability
-export const generateAccessAndRefreshToken = async (userId) => {
+export const generateAccessAndRefreshToken = async (user) => { //replaces user with userId
   try {
-    const user = await User.findById(userId); // we got the object from backend
-    console.log(user, "check user");
+    // const user = await User.findById(userId); // we got the object from backend
+    // console.log(user, "check user");
     const accessToken = await user.generateAccessToken();
     const refreshToken = await user.generateRefreshToken();
 
@@ -109,7 +109,6 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({
     $or: [{ username }, { email }],
   });
-  console.log(user, "check user in loginuser");
 
   if (!user) {
     throw new ApiErrorHandler(404, "User does not exist in database");
@@ -119,9 +118,12 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiErrorHandler(401, "Invalid use creadentials");
   }
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
-    user._id
-  );
+  // const { accessToken, refreshToken } =
+  //   await generateAccessAndRefreshToken(user._id);
+  // here we are passing user._id and in generateaccessandRefreshtOken we are finding user object with user?._id so now i am modifying code i am directly passing the user object
+
+  const { accessToken, refreshToken } =
+    await generateAccessAndRefreshToken(user);
 
   const loggedInUser = await User.findById(user._id).select(
     "-password -refreshToken"
