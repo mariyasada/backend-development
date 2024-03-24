@@ -49,7 +49,7 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-// encrypt the password when user change the password field
+// encrypt the password when user enter or change the password field in mongodb
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10); // how many rounds of hash
@@ -57,7 +57,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // we can add our methods
-userSchema.methods.isPaswordCorrect = async function (password) {
+userSchema.methods.isPasswordCorrect = async function (password) {
   //It compares the plaintext password parameter with the hashed password (this.password) stored in the document.
   return await bcrypt.compare(password, this.password); // comparing user's password with the password which is stored in the database
 };
