@@ -50,6 +50,7 @@ const userSchema = new Schema(
 );
 
 // encrypt the password when user enter or change the password field in mongodb
+//We define a pre-save hook using userSchema.pre('save', ...). This hook function checks if the password field has been modified (or is new), then hashes the password using bcrypt before saving it.
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10); // how many rounds of hash
