@@ -20,9 +20,12 @@ app.use(cookieParser()); // before sending the response we check the cokkie usin
 
 // route imports
 import userRouter from "./routes/user.routes.js";
+import videoRouter from "./routes/video.routes.js";
 
 // route declaration means which url used for which route , here we have to use middleware that's why we are using use
 app.use("/api/v1/users", userRouter);
+
+app.use("/api/v1/video", videoRouter);
 // router name
 
 export { app };
